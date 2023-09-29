@@ -1,4 +1,4 @@
-package co.edu.uco.tiendaonline.data.entity;
+package co.edu.uco.tiendaonline.data.entity.support;
 
 public class NumeroCelularClienteEntity {
 	private String numeroCelular;

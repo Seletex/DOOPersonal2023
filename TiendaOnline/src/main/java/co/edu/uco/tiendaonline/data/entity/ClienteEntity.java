@@ -3,6 +3,10 @@ package co.edu.uco.tiendaonline.data.entity;
 import java.sql.Date;
 import java.util.UUID;
 
+import co.edu.uco.tiendaonline.data.entity.support.CorreoElectronicoClienteEntity;
+import co.edu.uco.tiendaonline.data.entity.support.NombreCompletoClienteEntity;
+import co.edu.uco.tiendaonline.data.entity.support.NumeroCelularClienteEntity;
+
 public class ClienteEntity {
 
 	private UUID id;
