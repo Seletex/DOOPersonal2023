@@ -14,11 +14,11 @@ public abstract class DAOFactory {
 			
 		}
 		case POSTGRESQL: {
-			//TODO: falta mejorar el manejo de excepciones customizadas
+		
 			throw new RuntimeException("Fatoria no soportada");
 		}
 		case ORACLE: {
-			//TODO: falta mejorar el manejo de excepciones customizadas
+			
 			throw new RuntimeException("Fatoria no soportada");
 		}
 		default:

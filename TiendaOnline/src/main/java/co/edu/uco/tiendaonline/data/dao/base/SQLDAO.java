@@ -1,6 +1,7 @@
 package co.edu.uco.tiendaonline.data.dao.base;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class SQLDAO {
 
@@ -12,9 +13,13 @@ public class SQLDAO {
 
 	private final void setConexion(final Connection conexion) {
 
-		// TODO:Controlar que la conexion no sea nula o que no este cerrada o que ya no
-		// se haya confrimada una transaccion
-		this.conexion = conexion;
+		try {
+			if (conexion != null && !conexion.isClosed()) {
+				System.out.println("La conexion esta abierta");
+			}
+		} catch (final SQLException exception) {
+			throw new RuntimeException("Falla en la conexion");
+		}
 	}
 
 	protected final Connection getConexion() {
