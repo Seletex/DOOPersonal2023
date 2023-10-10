@@ -1,6 +1,10 @@
 package co.edu.uco.tiendaonline.crosscutting.mensajes;
 
-import java.util.HashMap;
+
+
+
+import java.util.EnumMap;
+
 import java.util.Map;
 
 
@@ -13,8 +17,9 @@ import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.TipoMensaje;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilObjeto;
 
 public final class CatalogoMensajes {
+	
 
-	private static final Map<CodigoMensaje, Mensaje> MENSAJES = new HashMap<>();
+	private static final Map<CodigoMensaje, Mensaje> MENSAJES =new EnumMap<>(CodigoMensaje.class); 
 
 	static {
 		cargarMensajes();
@@ -100,12 +105,14 @@ public final class CatalogoMensajes {
 	public static final Mensaje obtenerMensaje(final CodigoMensaje codigo) {
 		if (UtilObjeto.esNulo(codigo)) {
 			
-			throw CrossCuttingTiendaOnlineException.crear(obtenerContenidoMensaje(CodigoMensaje.M00000004),
+			throw CrossCuttingTiendaOnlineException.crear(
+					obtenerContenidoMensaje(CodigoMensaje.M00000004),
 					obtenerContenidoMensaje(CodigoMensaje.M00000003));
 		}
 		
 		if(!MENSAJES.containsKey(codigo)) {
-			throw CrossCuttingTiendaOnlineException.crear(obtenerContenidoMensaje(CodigoMensaje.M00000004),
+			throw CrossCuttingTiendaOnlineException.crear(
+					obtenerContenidoMensaje(CodigoMensaje.M00000004),
 					obtenerContenidoMensaje(CodigoMensaje.M00000002));
 		}
 		return MENSAJES.get(codigo);
@@ -119,8 +126,5 @@ public final class CatalogoMensajes {
 	private static final void agregarMensaje(final Mensaje mensaje) {
 		MENSAJES.put(mensaje.getCodigo(), mensaje);
 	}
-	public static void main(String[] args) {
-		System.out.println(CrossCuttingTiendaOnlineException.crear(obtenerContenidoMensaje(CodigoMensaje.M00000004),
-				obtenerContenidoMensaje(CodigoMensaje.M00000002)));
-	}
+	
 }
