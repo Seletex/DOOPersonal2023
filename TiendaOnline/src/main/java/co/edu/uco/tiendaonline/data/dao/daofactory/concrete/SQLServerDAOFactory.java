@@ -1,8 +1,14 @@
 package co.edu.uco.tiendaonline.data.dao.daofactory.concrete;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import co.edu.uco.tiendaonline.crosscutting.exception.concrete.CrossCuttingTiendaOnlineException;
+import co.edu.uco.tiendaonline.crosscutting.exception.concrete.DataTiendaOnlineException;
+import co.edu.uco.tiendaonline.crosscutting.mensajes.CatalogoMensajes;
+import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.CodigoMensaje;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilSQL;
 import co.edu.uco.tiendaonline.data.dao.ClienteDAO;
 import co.edu.uco.tiendaonline.data.dao.TipoIdentificacionDAO;
 import co.edu.uco.tiendaonline.data.dao.concrete.sqlserver.ClienteSQLServerDAO;
@@ -17,87 +23,67 @@ public final class SQLServerDAOFactory extends DAOFactory {
 		abrirConexion();
 	}
 
-	
 	@Override
 	protected final void abrirConexion() {
-
 		try {
-			if (conexion != null && !conexion.isClosed()) {
-				System.out.println("La conexion esta abierta");
-			}
-		} catch (final SQLException exception) {
-			throw new RuntimeException("Falla en la conexion");
+			var cadenaConexion = "jdbc:sqlserver://<server>:<port>;encrypt=false;databaseName=<database>;user=<user>;password=<password>";
+			conexion = DriverManager.getConnection(cadenaConexion);
+		} catch (final SQLException excepcion) {
+			
+			throw DataTiendaOnlineException.crear(excepcion, CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004), CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000027));
+		} catch (final Exception excepcion) {
+			
+			throw DataTiendaOnlineException.crear(excepcion, CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004), CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000028));
 		}
-
 	}
 
 	@Override
 	public final void cerrarConexion() {
-		try {
-			if (!conexion.isClosed()) {
-				System.out.println("La conexion ya se ha cerrado");
-			}
-			conexion.close();
-		}
-
-		catch (final SQLException exception) {
-			throw new RuntimeException("Conexion cerrada");
-		}
-
+		UtilSQL.cerrarConexion(conexion);
 	}
 
 	@Override
 	public final void iniciarTransaccion() {
-		try {
-			if (conexion != null && !conexion.isClosed()) {
-				System.out.println("La conexion esta abierta");
-			}
-			conexion.setAutoCommit(false);
-
-		} catch (final SQLException exception) {
-			throw new RuntimeException("Ha ocurrido un problema a la hora de iniciar la transaccion");
-		}
-
+		UtilSQL.iniciarTransaccion(conexion);
 	}
 
 	@Override
 	public final void confirmarTransaccion() {
-		try {
-			if (conexion != null && !conexion.isClosed()) {
-				System.out.println("La conexion esta abierta");
-			}
-			conexion.setAutoCommit(true);
-		}
-
-		catch (final SQLException exception) {
-			throw new RuntimeException("Ha ocurrido un error inesperado a la hora de realizar la transaccion");
-		}
+		UtilSQL.confirmarTransaccion(conexion);
 	}
 
-	@Override
-	public final void cancelrTransaccion() {
-		try {
-			if (conexion != null && !conexion.isClosed()) {
-				System.out.println("La conexion esta abierta");
-			}
-			conexion.rollback();
-		}
-
-		catch (final SQLException exception) {
-			throw new RuntimeException("Ha ocurrido un error inesperado a la hora de realizar la transaccion");
-		}
-	}
+	
 
 	@Override
-	public ClienteDAO obtenerClienteDAO() {
+	public final ClienteDAO obtenerClienteDAO() {
+
+		if (!UtilSQL.conexionAbierta(conexion)) {
+	
+			throw CrossCuttingTiendaOnlineException.crear(
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000033));
+		}
 
 		return new ClienteSQLServerDAO(conexion);
 	}
 
 	@Override
-	public TipoIdentificacionDAO obtenerTipoIdentificacionDAO() {
+	public final TipoIdentificacionDAO obtenerTipoIdentificacionDAO() {
+
+		if (!UtilSQL.conexionAbierta(conexion)) {
+		
+			throw CrossCuttingTiendaOnlineException.crear(
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000034));
+		}
 
 		return new TipoIdentificacionSQLServerDAO(conexion);
+	}
+
+	@Override
+	public void cancelrTransaccion() {
+		UtilSQL.cancelarTransaccion(conexion);
+		
 	}
 
 }

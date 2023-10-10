@@ -6,9 +6,17 @@ import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.CodigoMensaje;
 import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.TipoMensaje;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilObjeto;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilTexto;
+import java.util.logging.Logger;
+import java.util.logging.ConsoleHandler;
+
 
 public final class Mensaje {
 
+	Logger imprimir = Logger.getLogger(Mensaje.class.getName());
+	
+   
+    ConsoleHandler consoleHandler = new ConsoleHandler();
+   
 	private CodigoMensaje codigo;
 	private TipoMensaje tipo;
 	private CategoriaMensaje categoria;
@@ -65,5 +73,6 @@ public final class Mensaje {
 	public final String getContenido() {
 		return contenido;
 	}
+	
 
 }

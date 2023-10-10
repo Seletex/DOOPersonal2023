@@ -14,77 +14,177 @@ public class UtilSQL {
 	}
 
 	public static final boolean conexionAbierta(final Connection conexion) {
-		try {
-			return UtilObjeto.esNulo(conexion) && !conexion.isClosed();
-		} catch (SQLException exception) {
-			throw CrossCuttingTiendaOnlineException.crear(exception,
+
+		if (UtilObjeto.esNulo(conexion)) {
+
+			throw CrossCuttingTiendaOnlineException.crear(
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-					"No es posible validar si una conexion esta abierta cuando esta nula");
-		} catch (Exception exception) {
-			throw CrossCuttingTiendaOnlineException.crear(exception,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000007));
+		}
+
+		try {
+			return !conexion.isClosed();
+		} catch (final SQLException excepcion) {
+
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000005));
+		} catch (final Exception excepcion) {
+
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000006));
 		}
 	}
 
 	public static final void cerrarConexion(final Connection conexion) {
 		if (UtilObjeto.esNulo(conexion)) {
+
 			throw CrossCuttingTiendaOnlineException.crear(
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-					"No es posible cerrar una conexion que ya esta nula");
-
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000026));
 		}
+
 		try {
 			if (!conexionAbierta(conexion)) {
+
 				throw CrossCuttingTiendaOnlineException.crear(
 						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-						"No es posible cerrar una conexion que ya esta cerrada");
-
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000008));
 			}
+
 			conexion.close();
-		} catch (final CrossCuttingTiendaOnlineException exception) {
-			throw exception;
-		} catch (SQLException exception) {
-			throw CrossCuttingTiendaOnlineException.crear(exception,
+		} catch (final CrossCuttingTiendaOnlineException excepcion) {
+			throw excepcion;
+		} catch (final SQLException excepcion) {
+		
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-					"Se ha presentado un problema tratando de cerrar la conexion SQL de tipo SQLException");
-		} catch (Exception exception) {
-			throw CrossCuttingTiendaOnlineException.crear(exception,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000009));
+		} catch (final Exception excepcion) {
+			
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-					"Se ha presentado un problema inesperado trantado de cerrar la conexion SQL");
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000010));
 		}
 	}
+
 	public static final void iniciarTransaccion(final Connection conexion) {
 		if (UtilObjeto.esNulo(conexion)) {
+	
 			throw CrossCuttingTiendaOnlineException.crear(
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-					"No es posible iniciar una transaccion con una conexion que ya esta nula");
-
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000011));
 		}
+
 		try {
 			if (!conexionAbierta(conexion)) {
+
 				throw CrossCuttingTiendaOnlineException.crear(
 						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-						"No es posible iniciar una transaccion con una conexion que ya esta cerrada");
-
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000012));
 			}
+
+			if (!conexion.getAutoCommit()) {
+			
+				throw CrossCuttingTiendaOnlineException.crear(
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000013));
+			}
+
+			conexion.setAutoCommit(false);
+		} catch (final CrossCuttingTiendaOnlineException excepcion) {
+			throw excepcion;
+		} catch (final SQLException excepcion) {
+		
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000014));
+		} catch (final Exception excepcion) {
+		
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000015));
+		}
+	}
+
+	public static final void confirmarTransaccion(final Connection conexion) {
+
+		if (UtilObjeto.esNulo(conexion)) {
+		
+			throw CrossCuttingTiendaOnlineException.crear(
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000016));
+		}
+
+		try {
+			if (!conexionAbierta(conexion)) {
+				
+				throw CrossCuttingTiendaOnlineException.crear(
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000017));
+			}
+
 			if (conexion.getAutoCommit()) {
+		
 				throw CrossCuttingTiendaOnlineException.crear(
 						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-						"No es posible iniciar una transaccion con una transaccion que ya ha sido iniciada");
-
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000018));
 			}
-			conexion.close();
-		} catch (final CrossCuttingTiendaOnlineException exception) {
-			throw exception;
-		} catch (SQLException exception) {
-			throw CrossCuttingTiendaOnlineException.crear(exception,
+
+			conexion.commit();
+		} catch (final CrossCuttingTiendaOnlineException excepcion) {
+			throw excepcion;
+		} catch (final SQLException excepcion) {
+	
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-					"Se ha presentado un problema tratando de cerrar la conexion SQL de tipo SQLException");
-		} catch (Exception exception) {
-			throw CrossCuttingTiendaOnlineException.crear(exception,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000019));
+		} catch (final Exception excepcion) {
+	
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
-					"Se ha presentado un problema inesperado trantado de cerrar la conexion SQL");
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000020));
+		}
+	}
+
+	public static final void cancelarTransaccion(final Connection conexion) {
+
+		if (UtilObjeto.esNulo(conexion)) {
+		
+			throw CrossCuttingTiendaOnlineException.crear(
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M000000021));
+		}
+
+		try {
+			if (!conexionAbierta(conexion)) {
+	
+				throw CrossCuttingTiendaOnlineException.crear(
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000022));
+			}
+
+			if (conexion.getAutoCommit()) {
+			
+				throw CrossCuttingTiendaOnlineException.crear(
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000023));
+			}
+
+			conexion.rollback();
+		} catch (final CrossCuttingTiendaOnlineException excepcion) {
+			throw excepcion;
+		} catch (final SQLException excepcion) {
+		
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000024));
+		} catch (final Exception excepcion) {
+		
+			throw CrossCuttingTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000025));
 		}
 	}
 }
