@@ -1,13 +1,15 @@
 package co.edu.uco.tiendaonline.data.dao.concrete.sqlserver;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import co.edu.uco.tiendaonline.crosscutting.exception.concrete.DataTiendaOnlineException;
+import co.edu.uco.tiendaonline.crosscutting.mensajes.CatalogoMensajes;
+import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.CodigoMensaje;
 import co.edu.uco.tiendaonline.data.dao.TipoIdentificacionDAO;
 import co.edu.uco.tiendaonline.data.dao.base.SQLDAO;
 import co.edu.uco.tiendaonline.data.entity.TipoIdentificacionEntity;
@@ -35,14 +37,13 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 			sentenciaPreparada.executeUpdate();
 
 		} catch (final SQLException excepcion) {
-			throw DataTiendaOnlineException.crear(
-					"Se ha presentado un problema tratando de registrar la información del nuevo Tipo de Identificación",
-					"Se ha presentado un problema de tipo SQLException en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio");
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000036),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000037));
 		} catch (final Exception excepcion) {
-			throw DataTiendaOnlineException.crear(
-					"Se ha presentado un problema tratando de registrar la información del nuevo Tipo de Identificación",
-					"Se ha presentado un problema inesperado de tipo Exception en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio");
-
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000038),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000039));
 		}
 
 	}
@@ -50,12 +51,12 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 	@Override
 	public final void modificar(TipoIdentificacionEntity entity) {
 		final var sentencia = new StringBuilder();
-		sentencia.append("INSERT INTO TipoIdentificacion (id, codigo, nombre, estado) ");
-		sentencia.append("VALUES (?,?,?,?) ");
+		sentencia.append("UPDATE TipoIdentificacion ");
+		sentencia.append("SET codigo=?, nombre=?, estado=? ");
+		sentencia.append("WHERE id=? ");
 
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
 
-			sentenciaPreparada.setObject(1, entity.getId());
 			sentenciaPreparada.setString(2, entity.getCodigo());
 			sentenciaPreparada.setString(3, entity.getNombre());
 			sentenciaPreparada.setBoolean(4, entity.isEstado());
@@ -64,13 +65,12 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 
 		} catch (final SQLException excepcion) {
 			throw DataTiendaOnlineException.crear(excepcion,
-					"Se ha presentado un problema tratando de registrar la información del nuevo Tipo de Identificación",
-					"Se ha presentado un problema de tipo SQLException en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio");
-		} catch (final Exception excepcion) {
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000040),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000041));
+			} catch (final Exception excepcion) {
 			throw DataTiendaOnlineException.crear(excepcion,
-					"Se ha presentado un problema tratando de registrar la información del nuevo Tipo de Identificación",
-					"Se ha presentado un problema inesperado de tipo Exception en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio");
-
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000042),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000043));
 		}
 
 	}
@@ -78,8 +78,8 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 	@Override
 	public final void eliminar(UUID id) {
 		final var sentencia = new StringBuilder();
-		sentencia.append("INSERT INTO TipoIdentificacion (id, codigo, nombre, estado) ");
-		sentencia.append("VALUES (?,?,?,?) ");
+		sentencia.append("DELETE FROM TipoIdentificacion ");
+		sentencia.append("WHERE id=?");
 
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())) {
 
@@ -87,13 +87,12 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 
 		} catch (final SQLException excepcion) {
 			throw DataTiendaOnlineException.crear(
-					"Se ha presentado un problema tratando de registrar la información del nuevo Tipo de Identificación",
-					"Se ha presentado un problema de tipo SQLException en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio");
-		} catch (final Exception excepcion) {
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000044),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000045));
+			} catch (final Exception excepcion) {
 			throw DataTiendaOnlineException.crear(
-					"Se ha presentado un problema tratando de registrar la información del nuevo Tipo de Identificación",
-					"Se ha presentado un problema inesperado de tipo Exception en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio");
-
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000046),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000047));
 		}
 
 	}
@@ -118,18 +117,16 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 				}
 			} catch (SQLException excepcion) {
 				throw DataTiendaOnlineException.crear(excepcion,
-						"Se ha presentado un problema tratando de consultar la información del Tipo de Identificación por identificador deseado...",
-						"Se ha presentado un problema de tipo SQLException en el método consultar ById la clase TipoIdentificacion tratando de recuperar los datos del TipoIdentifiacin deseado. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio");
-
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000048),
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000049));
 			}
 		} catch (final DataTiendaOnlineException excepcion) {
 			throw excepcion;
 		} catch (final Exception excepcion) {
 
 			throw DataTiendaOnlineException.crear(
-					"Se ha presentado un problema tratando de registrar la información del nuevo Tipo de Identificación",
-					"Se ha presentado un problema inesperado de tipo Exception tratando de preparar la sentencia SQL de la consulta del tipo identificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio");
-
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000050),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000051));
 		}
 
 		return resultado;

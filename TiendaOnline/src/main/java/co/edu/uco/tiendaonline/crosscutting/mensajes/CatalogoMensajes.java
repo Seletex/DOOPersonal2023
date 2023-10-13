@@ -1,13 +1,8 @@
 package co.edu.uco.tiendaonline.crosscutting.mensajes;
 
-
-
-
 import java.util.EnumMap;
 
 import java.util.Map;
-
-
 
 import co.edu.uco.tiendaonline.crosscutting.exception.concrete.CrossCuttingTiendaOnlineException;
 import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.CategoriaMensaje;
@@ -17,9 +12,8 @@ import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.TipoMensaje;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilObjeto;
 
 public final class CatalogoMensajes {
-	
 
-	private static final Map<CodigoMensaje, Mensaje> MENSAJES =new EnumMap<>(CodigoMensaje.class); 
+	private static final Map<CodigoMensaje, Mensaje> MENSAJES = new EnumMap<>(CodigoMensaje.class);
 
 	static {
 		cargarMensajes();
@@ -100,25 +94,56 @@ public final class CatalogoMensajes {
 				"Se ha presentado un problema tratando de obtener el DAO de TipoIdentificacionSQLServerDAO debido a que la conexiòn actualmente està cerrada, por lo que no hay una conexiòn vàlida disponible..."));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000035, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
 				"Se ha presentado un problema tratando de crear el DAO deseado, debido a que la conexiòn actualmente està cerrada, por lo que no hay una conexiòn vàlida disponible..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000036, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema tratando de registrar la información del nuevo Tipo de Identificación"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000037, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema de tipo SQLException en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000038, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado tratando de registrar la información del nuevo Tipo de Identificación"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000039, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado de tipo Exception en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000040, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema tratando de actualizar la información del Tipo de Identificación"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000041, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema de tipo SQLException en el método modificar la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000042, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado tratando de actualizar la información del Tipo de Identificación"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000043, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado de tipo Exception en el método modificar la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000044, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema tratando de eliminar la información del Tipo de Identificación"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000045, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema de tipo SQLException en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000046, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado tratando de eliminar la información del Tipo de Identificación"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000047, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado de tipo Exception en el método crear la clase TipoIdentificacion tratando llvar a cabo el registro del nuevo TipoIdentificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000048, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema tratando de consultar la información del Tipo de Identificación por identificador deseado..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000049, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema de tipo SQLException en el método consultar ById la clase TipoIdentificacion tratando de recuperar los datos del TipoIdentifiacin deseado. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000050, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado tratando de consultar la información del Tipo de Identificación"));
+
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000051, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado de tipo Exception tratando de preparar la sentencia SQL de la consulta del tipo identificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
 	}
 
 	public static final Mensaje obtenerMensaje(final CodigoMensaje codigo) {
 		if (UtilObjeto.esNulo(codigo)) {
-			
-			throw CrossCuttingTiendaOnlineException.crear(
-					obtenerContenidoMensaje(CodigoMensaje.M00000004),
+
+			throw CrossCuttingTiendaOnlineException.crear(obtenerContenidoMensaje(CodigoMensaje.M00000004),
 					obtenerContenidoMensaje(CodigoMensaje.M00000003));
 		}
-		
-		if(!MENSAJES.containsKey(codigo)) {
-			throw CrossCuttingTiendaOnlineException.crear(
-					obtenerContenidoMensaje(CodigoMensaje.M00000004),
+
+		if (!MENSAJES.containsKey(codigo)) {
+			throw CrossCuttingTiendaOnlineException.crear(obtenerContenidoMensaje(CodigoMensaje.M00000004),
 					obtenerContenidoMensaje(CodigoMensaje.M00000002));
 		}
 		return MENSAJES.get(codigo);
-		
+
 	}
-	
+
 	public static final String obtenerContenidoMensaje(final CodigoMensaje codigo) {
 		return obtenerMensaje(codigo).getContenido();
 	}
@@ -126,5 +151,5 @@ public final class CatalogoMensajes {
 	private static final void agregarMensaje(final Mensaje mensaje) {
 		MENSAJES.put(mensaje.getCodigo(), mensaje);
 	}
-	
+
 }

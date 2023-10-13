@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+
 import co.edu.uco.tiendaonline.data.entity.ClienteEntity;
 
 public interface ClienteDAO {
@@ -17,5 +18,7 @@ public interface ClienteDAO {
 	Optional<ClienteEntity> consultarPorId(UUID id);
 	
 	List<ClienteEntity> consultar(ClienteEntity entity);
+
+
 	
 }
