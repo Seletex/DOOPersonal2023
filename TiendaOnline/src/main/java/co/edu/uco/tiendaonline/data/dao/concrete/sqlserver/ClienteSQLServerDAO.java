@@ -1,6 +1,7 @@
 package co.edu.uco.tiendaonline.data.dao.concrete.sqlserver;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -116,23 +117,7 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 		try (final var sentenciaPrepareda = getConexion().prepareStatement(sentencia.toString())) {
 			sentenciaPrepareda.setObject(1, id);
 
-			try (final var resultados = sentenciaPrepareda.executeQuery()) {
-				if (resultados.next()) {
-					final var clienteEntity = ClienteEntity.crear(
-							UUID.fromString(resultados.getObject("id").toString()),
-							resultados.getObject("tipoIdentificacion", TipoIdentificacionEntity.class),
-							resultados.getString("identificacion"),
-							resultados.getObject("nombreCompleto", NombreCompletoClienteEntity.class),
-							(resultados.getObject("correoElectronico", CorreoElectronicoClienteEntity.class)),
-							resultados.getObject("numeroCelular", NumeroCelularClienteEntity.class),
-							resultados.getDate("fechaNacimiento"));
-					resultado = Optional.of(clienteEntity);
-				}
-			} catch (SQLException excepcion) {
-				throw DataTiendaOnlineException.crear(excepcion,
-						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000048),
-						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000049));
-			}
+			resultado=ejecutarConsultaPorId(sentenciaPrepareda);
 		} catch (final DataTiendaOnlineException excepcion) {
 			throw excepcion;
 		} catch (final Exception excepcion) {
@@ -148,6 +133,28 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 	public final List<ClienteEntity> consultar(ClienteEntity entity) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private final Optional<ClienteEntity> ejecutarConsultaPorId(final PreparedStatement sentenciaPreparada){
+		Optional<ClienteEntity> resultado = Optional.empty();
+		try (final var resultados = sentenciaPreparada.executeQuery()) {
+			if (resultados.next()) {
+				final var clienteEntity = ClienteEntity.crear(
+						UUID.fromString(resultados.getObject("id").toString()),
+						resultados.getObject("tipoIdentificacion", TipoIdentificacionEntity.class),
+						resultados.getString("identificacion"),
+						resultados.getObject("nombreCompleto", NombreCompletoClienteEntity.class),
+						(resultados.getObject("correoElectronico", CorreoElectronicoClienteEntity.class)),
+						resultados.getObject("numeroCelular", NumeroCelularClienteEntity.class),
+						resultados.getDate("fechaNacimiento"));
+				resultado = Optional.of(clienteEntity);
+			}
+		} catch (SQLException excepcion) {
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000048),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000049));
+		}
+		return resultado;
 	}
 
 }
