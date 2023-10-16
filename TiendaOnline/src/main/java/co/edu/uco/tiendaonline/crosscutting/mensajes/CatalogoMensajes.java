@@ -127,6 +127,20 @@ public final class CatalogoMensajes {
 
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000051, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
 				"Se ha presentado un problema inesperado de tipo Exception tratando de preparar la sentencia SQL de la consulta del tipo identificacion. Revise la traza cmpleta del problema para asi poder identificaciar que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000052, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de identificacion"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000054, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un prblema inesperado de tipo SQLException en el metodo preparar la sentencia de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado"
+				));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000053, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un prblema de tipo SQLException en el metodo preparar la sentencia de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000057, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema tratando de llevar a cabo la consulta de los clientes"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000055, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un prblema de tipo SQLException en el metodo colocar parametros de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000056, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un prblema inesperado de tipo SQLException en el metodo colocar parametros de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado"));
+	
 	}
 
 	public static final Mensaje obtenerMensaje(final CodigoMensaje codigo) {

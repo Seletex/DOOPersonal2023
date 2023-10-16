@@ -3,6 +3,9 @@ package co.edu.uco.tiendaonline.service.dto;
 import java.util.Date;
 import java.util.UUID;
 
+import co.edu.uco.tiendaonline.crosscutting.util.UtilFecha;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilTexto;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilUUID;
 import co.edu.uco.tiendaonline.service.dto.support.CorreoElectronicoClienteDTO;
 import co.edu.uco.tiendaonline.service.dto.support.NombreCompletoClienteDTO;
 import co.edu.uco.tiendaonline.service.dto.support.NumeroCelularClienteDTO;
@@ -20,13 +23,13 @@ public class ClienteDTO {
 	private Date fechaNacimineto;
 	
 	public ClienteDTO() {
-		setId(id);
+		setId(UtilUUID.UUID_POR_DEFECTO);
 		setTipoIdentificacion(new TipoIdentificacionDTO());
-		setIdentificacion(identificacion);
+		setIdentificacion(UtilTexto.VACIO);
 		setNombreCompleto(new NombreCompletoClienteDTO());
 		setCorreoElectronico(new CorreoElectronicoClienteDTO());
-		setNumeroCelular(numeroCelular);
-		setFechaNacimineto(fechaNacimineto);// Lograr que por defecto se asigne  una fecha que no sea valida
+		setNumeroCelular(new NumeroCelularClienteDTO());
+		setFechaNacimineto(UtilFecha.obtenerValorDefecto(fechaNacimineto));// Lograr que por defecto se asigne  una fecha que no sea valida
 	}
 	
 	public ClienteDTO(final UUID id,final  TipoIdentificacionDTO tipoIdentificacion,final  String identificacion,

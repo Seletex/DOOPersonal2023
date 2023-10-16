@@ -13,6 +13,7 @@ import co.edu.uco.tiendaonline.crosscutting.mensajes.CatalogoMensajes;
 import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.CodigoMensaje;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilObjeto;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilTexto;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilUUID;
 import co.edu.uco.tiendaonline.data.dao.TipoIdentificacionDAO;
 import co.edu.uco.tiendaonline.data.dao.base.SQLDAO;
 import co.edu.uco.tiendaonline.data.entity.TipoIdentificacionEntity;
@@ -163,12 +164,9 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 	public final List<TipoIdentificacionEntity> consultar(final TipoIdentificacionEntity entity) {
 		final var parametros = new ArrayList<Object>();
 		final String sentencia = formarSentenciaConsulta(entity, parametros);
-	
-		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia)) {
-			
 
-			
-			
+		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia)) {
+
 			colocarParametrosConsulta(sentenciaPreparada, parametros);
 			return ejecutarConsulta(sentenciaPreparada);
 
@@ -176,14 +174,12 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 			throw excepcion;
 		} catch (final SQLException excepcion) {
 			throw DataTiendaOnlineException.crear(excepcion,
-					"Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de identificacion",
-					"Se ha presentado un prblema de tipo SQLException en el metodo preparar la sentencia de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado");
-
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000057),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000053));
 		} catch (Exception excepcion) {
 			throw DataTiendaOnlineException.crear(excepcion,
-					"Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de identificacion",
-					"Se ha presentado un prblema inesperado de tipo SQLException en el metodo preparar la sentencia de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado");
-
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000057),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000054));
 		}
 	}
 
@@ -195,37 +191,37 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 			}
 		} catch (final SQLException excepcion) {
 			throw DataTiendaOnlineException.crear(excepcion,
-					"Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de identificacion",
-					"Se ha presentado un prblema de tipo SQLException en el metodo colocar parametros de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado");
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000057),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000055));
 		} catch (Exception excepcion) {
 			throw DataTiendaOnlineException.crear(excepcion,
-					"Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de identificacion",
-					"Se ha presentado un prblema inesperado de tipo SQLException en el metodo colocar parametros de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado");
-
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000057),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000056));
 		}
 	}
 
 	private final List<TipoIdentificacionEntity> ejecutarConsulta(final PreparedStatement sentenciaPreparada) {
 		final var listaResultados = new ArrayList<TipoIdentificacionEntity>();
-		
-		try (final var resultados = sentenciaPreparada.executeQuery()){
-			while(resultados.next()) {
-				 var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(
-						UUID.fromString(resultados.getObject("id").toString()), resultados.getString("codigo"),
-						resultados.getString("nombre"), resultados.getBoolean("estado"));
+
+		try (final var resultados = sentenciaPreparada.executeQuery()) {
+			while (resultados.next()) {
+				var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(
+						UtilUUID.obtenerUUIDDeTexto(resultados.getObject("id").toString()),
+						resultados.getString("codigo"), resultados.getString("nombre"),
+						resultados.getBoolean("estado"));
 				listaResultados.add(tipoIdentificacionEntity);
 			}
-		}catch (final SQLException excepcion) {
+		} catch (final SQLException excepcion) {
 			throw DataTiendaOnlineException.crear(excepcion,
-					"Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de identificacion",
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000057),
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000050));
 
-		}catch (final Exception excepcion) {
+		} catch (final Exception excepcion) {
 			throw DataTiendaOnlineException.crear(excepcion,
-					"Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de identificacion",
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000057),
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000049));
 		}
-		
+
 		return listaResultados;
 	}
 
@@ -234,7 +230,7 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 		try (final var resultados = sentenciaPreparada.executeQuery()) {
 			if (resultados.next()) {
 				final var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(
-						UUID.fromString(resultados.getObject("id").toString()), resultados.getString("codigo"),
+						UtilUUID.obtenerUUIDDeTexto(resultados.getObject("id").toString()), resultados.getString("codigo"),
 						resultados.getString("nombre"), resultados.getBoolean("estado"));
 				resultado = Optional.of(tipoIdentificacionEntity);
 			}

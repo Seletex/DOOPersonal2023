@@ -3,6 +3,7 @@ package co.edu.uco.tiendaonline.data.dao.concrete.sqlserver;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +18,10 @@ import co.edu.uco.tiendaonline.data.entity.TipoIdentificacionEntity;
 import co.edu.uco.tiendaonline.data.entity.support.CorreoElectronicoClienteEntity;
 import co.edu.uco.tiendaonline.data.entity.support.NombreCompletoClienteEntity;
 import co.edu.uco.tiendaonline.data.entity.support.NumeroCelularClienteEntity;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilFecha;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilObjeto;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilTexto;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilUUID;
 
 public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 
@@ -131,8 +136,123 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 
 	@Override
 	public final List<ClienteEntity> consultar(ClienteEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		final var parametros = new ArrayList<Object>();
+		final String sentencia = formarSentenciaConsulta(entity, parametros);
+
+		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia)) {
+
+			colocarParametrosConsulta(sentenciaPreparada, parametros);
+			return ejecutarConsulta(sentenciaPreparada);
+
+		} catch (DataTiendaOnlineException excepcion) {
+			throw excepcion;
+		} catch (final SQLException excepcion) {
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000052),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000053));
+		} catch (Exception excepcion) {
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000052),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000054));
+		}
+	}
+
+	private final void colocarParametrosConsulta(final PreparedStatement sentenciaPreparada,
+			final List<Object> parametros) {
+		try {
+			for (int indice = 0; indice < parametros.size(); indice++) {
+				sentenciaPreparada.setObject(indice + 1, parametros.get(indice));
+			}
+		} catch (final SQLException excepcion) {
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000052),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000055));
+		} catch (Exception excepcion) {
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000052),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000056));
+		}
+	}
+	private final String formarSentenciaConsulta(final ClienteEntity entity, final List<Object> parametros) {
+
+		final StringBuilder sentencia = new StringBuilder();
+		String operadorCondicional = "WHERE";
+
+		sentencia.append("SELECT id,codigo,nombre, estado ");
+		sentencia.append("FROM TipoIdentificacion ");
+		if (!UtilObjeto.esNulo(entity)) {
+			if (!UtilObjeto.esNulo(entity.getId())) {
+				sentencia.append(operadorCondicional).append(" id=? ");
+				operadorCondicional = "AND";
+				parametros.add(entity.getId());
+			}
+			if (!UtilObjeto.esNulo(entity.getTipoIdentificacion())) {
+				sentencia.append(operadorCondicional).append(" tipoIdentificacion=? ");
+				operadorCondicional = "AND ";
+				parametros.add(entity.getTipoIdentificacion());
+			}
+
+			if (!UtilTexto.estaVacio(entity.getIdentificacion())) {
+				sentencia.append(operadorCondicional).append(" nombre=? ");
+				operadorCondicional = "AND ";
+				parametros.add(entity.getIdentificacion());
+			}
+
+			if (!UtilObjeto.esNulo(entity.getNombreCompleto())) {
+				sentencia.append(operadorCondicional).append(" nombreCompleto=? ");
+				operadorCondicional = "AND ";
+				parametros.add(entity.getNombreCompleto());
+			}
+			
+			if (!UtilObjeto.esNulo(entity.getCorreoElectronico())) {
+				sentencia.append(operadorCondicional).append(" correoElectronico=? ");
+				operadorCondicional = "AND ";
+				parametros.add(entity.getCorreoElectronico());
+			}
+			if (!UtilObjeto.esNulo(entity.getNumeroCelular())) {
+				sentencia.append(operadorCondicional).append(" numeroCelular=? ");
+				operadorCondicional = "AND ";
+				parametros.add(entity.getNumeroCelular());
+			}
+			
+			if (!UtilFecha.estaNulo(entity.getFechaNacimineto())) {
+				sentencia.append(operadorCondicional).append(" numeroCelular=? ");
+				
+				parametros.add(entity.getFechaNacimineto());
+			}
+		}
+
+		sentencia.append(" ORDER BY codigo ASC ");
+		return sentencia.toString();
+	}
+
+	private final List<ClienteEntity> ejecutarConsulta(final PreparedStatement sentenciaPreparada) {
+		final var listaResultados = new ArrayList<ClienteEntity>();
+
+		try (final var resultados = sentenciaPreparada.executeQuery()) {
+			while (resultados.next()) {
+				var tipoIdentificacionEntity = ClienteEntity.crear(
+						UtilUUID.obtenerUUIDDeTexto(resultados.getObject("id").toString()),
+						resultados.getObject("tipoIdentificacion", TipoIdentificacionEntity.class),
+						resultados.getString("identificacion"),
+						resultados.getObject("nombreCompleto", NombreCompletoClienteEntity.class),
+						(resultados.getObject("correoElectronico", CorreoElectronicoClienteEntity.class)),
+						resultados.getObject("numeroCelular", NumeroCelularClienteEntity.class),
+						resultados.getDate("fechaNacimiento"));
+				listaResultados.add(tipoIdentificacionEntity);
+			}
+		} catch (final SQLException excepcion) {
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000052),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000050));
+
+		} catch (final Exception excepcion) {
+			throw DataTiendaOnlineException.crear(excepcion,
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000052),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000049));
+		}
+
+		return listaResultados;
 	}
 	
 	private final Optional<ClienteEntity> ejecutarConsultaPorId(final PreparedStatement sentenciaPreparada){
@@ -140,7 +260,7 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 		try (final var resultados = sentenciaPreparada.executeQuery()) {
 			if (resultados.next()) {
 				final var clienteEntity = ClienteEntity.crear(
-						UUID.fromString(resultados.getObject("id").toString()),
+						UtilUUID.obtenerUUIDDeTexto(resultados.getObject("id").toString()),
 						resultados.getObject("tipoIdentificacion", TipoIdentificacionEntity.class),
 						resultados.getString("identificacion"),
 						resultados.getObject("nombreCompleto", NombreCompletoClienteEntity.class),

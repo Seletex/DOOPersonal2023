@@ -1,20 +1,20 @@
-package co.edu.uco.tiendaonline.service.dto.support;
+package co.edu.uco.tiendaonline.service.domain.support;
 
-public class NumeroCelularClienteDTO {
+public class NumeroCelularClienteDomain {
 	private String numeroCelular;
 	private boolean numeroCelularConfirmado;
 
-	public NumeroCelularClienteDTO() {
+	public NumeroCelularClienteDomain() {
 		
 	}
 	
-	private NumeroCelularClienteDTO(String numeroCelular, boolean numeroCelularConfirmado) {
+	private NumeroCelularClienteDomain(String numeroCelular, boolean numeroCelularConfirmado) {
 		setNumeroCelular(numeroCelular);
 		setNumeroCelularConfirmado(numeroCelularConfirmado);
 	}
 	
-	public static final NumeroCelularClienteDTO crear(String numeroCelular, boolean numeroCelularConfirmado) {
-		return new NumeroCelularClienteDTO(numeroCelular, numeroCelularConfirmado);
+	public static final NumeroCelularClienteDomain crear(String numeroCelular, boolean numeroCelularConfirmado) {
+		return new NumeroCelularClienteDomain(numeroCelular, numeroCelularConfirmado);
 	}
 	
 

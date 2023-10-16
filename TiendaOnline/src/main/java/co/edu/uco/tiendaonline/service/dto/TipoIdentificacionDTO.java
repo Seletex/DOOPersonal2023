@@ -3,6 +3,7 @@ package co.edu.uco.tiendaonline.service.dto;
 import java.util.UUID;
 
 import co.edu.uco.tiendaonline.crosscutting.util.UtilTexto;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilUUID;
 
 public final class TipoIdentificacionDTO {
 
@@ -12,7 +13,7 @@ public final class TipoIdentificacionDTO {
 	private boolean estado;
 	
 	public TipoIdentificacionDTO() {
-		setId(id); // Como lograr  que por defecto se asigne un UUID que sea todo con 0
+		setId(UtilUUID.UUID_POR_DEFECTO); 
 		setCodigo(UtilTexto.VACIO);
 		setNombre(UtilTexto.VACIO);
 		setEstado(false);
