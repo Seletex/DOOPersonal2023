@@ -216,7 +216,7 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 			}
 			
 			if (!UtilFecha.estaNulo(entity.getFechaNacimineto())) {
-				sentencia.append(operadorCondicional).append(" numeroCelular=? ");
+				sentencia.append(operadorCondicional).append(" fechaNacimiento=? ");
 				
 				parametros.add(entity.getFechaNacimineto());
 			}

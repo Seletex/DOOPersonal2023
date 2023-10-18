@@ -4,11 +4,11 @@ import java.util.Date;
 
 public final class UtilFecha {
 
-	public static final String FECHA_POR_DEFECTO_TEXTO = "2023-01-01";
-	protected static final Date FECHA_POR_DEFECTO_DATE = new Date(01 / 01 / 2500);
+	protected static final Date FECHA_POR_DEFECTO_DATE = new Date(31/12/2500);
+	public static final String FECHA_POR_DEFECTO_TEXTO = FECHA_POR_DEFECTO_DATE.toString();
+	
 
 	private UtilFecha() {
-		super();
 	}
 
 	public static final Date obtenerValorDefecto(final Date valor, final Date valorDefecto) {
@@ -29,6 +29,10 @@ public final class UtilFecha {
 
 	public static final boolean estaNulo(final Date valor) {
 		return UtilObjeto.esNulo(valor);
+	}
+	
+	public static final Date asignarPorDefecto() {
+		return FECHA_POR_DEFECTO_DATE;
 	}
 	
 	
