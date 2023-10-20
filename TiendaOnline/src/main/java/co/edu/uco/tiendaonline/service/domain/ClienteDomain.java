@@ -3,7 +3,10 @@ package co.edu.uco.tiendaonline.service.domain;
 import java.sql.Date;
 import java.util.UUID;
 
-
+import co.edu.uco.tiendaonline.data.entity.TipoIdentificacionEntity;
+import co.edu.uco.tiendaonline.data.entity.support.CorreoElectronicoClienteEntity;
+import co.edu.uco.tiendaonline.data.entity.support.NombreCompletoClienteEntity;
+import co.edu.uco.tiendaonline.data.entity.support.NumeroCelularClienteEntity;
 import co.edu.uco.tiendaonline.service.domain.support.CorreoElectronicoClienteDomain;
 import co.edu.uco.tiendaonline.service.domain.support.NombreCompletoClienteDomain;
 import co.edu.uco.tiendaonline.service.domain.support.NumeroCelularClienteDomain;
@@ -93,5 +96,13 @@ public class ClienteDomain {
 	public final TipoIdentificacionDomain getTipoIdentificacion() {
 		return tipoIdentificacion;
 	}
+
+	public static ClienteDomain crear(UUID id2, TipoIdentificacionEntity tipoIdentificacion2, String identificacion2,
+			NombreCompletoClienteEntity nombreCompleto2, CorreoElectronicoClienteEntity correoElectronico2,
+			NumeroCelularClienteEntity numeroCelular2, Date fechaNacimineto2) {
+		return null;
+	}
+
+	
 
 }
