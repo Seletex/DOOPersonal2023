@@ -12,7 +12,7 @@ import co.edu.uco.tiendaonline.data.entity.ClienteEntity;
 
 import co.edu.uco.tiendaonline.service.businesslogic.UseCase;
 import co.edu.uco.tiendaonline.service.domain.ClienteDomain;
-import co.edu.uco.tiendaonline.service.domain.TipoIdentificacionDomain;
+import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.tiendaonline.service.mapper.entity.concrete.ClienteEntityMapper;
 
 

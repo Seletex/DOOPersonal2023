@@ -9,7 +9,8 @@ import co.edu.uco.tiendaonline.data.dao.TipoIdentificacionDAO;
 import co.edu.uco.tiendaonline.data.dao.daofactory.DAOFactory;
 import co.edu.uco.tiendaonline.data.entity.TipoIdentificacionEntity;
 import co.edu.uco.tiendaonline.service.businesslogic.UseCase;
-import co.edu.uco.tiendaonline.service.domain.TipoIdentificacionDomain;
+import co.edu.uco.tiendaonline.service.businesslogic.validator.concrete.tipoidentificacion.RegistrarTipoidentificacionValidator;
+import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.tiendaonline.service.mapper.entity.concrete.TipoidentificacionEntityMapper;
 
 public class RegistrarTipoidentificacionUseCase implements UseCase<TipoIdentificacionDomain> {
@@ -26,7 +27,7 @@ public class RegistrarTipoidentificacionUseCase implements UseCase<TipoIdentific
 	public void execute(TipoIdentificacionDomain domain) {
 		// 1. Validar integridad de datos(Tipo de Dato, logitud, obligatoriedad,
 		// formato,rango)
-
+		RegistrarTipoidentificacionValidator.ejecutarValidacion(domain);
 		// 3. No debe de existir otro tipo de identificacion con el mismo codigo
 		validarNoexistenciaTipoIdentificacionMismoCodigo(domain.getCodigo());
 		// 4. No debe de existir otro tipo de identificacion con el mismo nombre

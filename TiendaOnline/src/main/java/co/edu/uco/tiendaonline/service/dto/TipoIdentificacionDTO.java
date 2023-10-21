@@ -56,6 +56,11 @@ public final class TipoIdentificacionDTO {
 		this.estado = estado;return this;
 				
 	}
+
+	public static TipoIdentificacionDTO crear(UUID id2, String codigo2, String nombre2, boolean estado2) {
+		// TODO Auto-generated method stub
+		return new TipoIdentificacionDTO(id2, codigo2,nombre2,estado2);
+	}
 	
 	
 }

@@ -9,7 +9,7 @@ import co.edu.uco.tiendaonline.data.dao.TipoIdentificacionDAO;
 import co.edu.uco.tiendaonline.data.dao.daofactory.DAOFactory;
 
 import co.edu.uco.tiendaonline.service.businesslogic.UseCase;
-import co.edu.uco.tiendaonline.service.domain.TipoIdentificacionDomain;
+import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.tiendaonline.service.mapper.entity.concrete.TipoidentificacionEntityMapper;
 
 public class EliminarTipoIdentificacionUseCase implements UseCase<TipoIdentificacionDomain> {
@@ -35,7 +35,7 @@ public class EliminarTipoIdentificacionUseCase implements UseCase<TipoIdentifica
 	}
 
 	private final void validarExistenciaTipoIdentificacionMismoId(final UUID id) {
-		// TODO: ¿Como lograr que esto no quede tan feo????
+		
 		final var resultado = getTipoIdentificacionDAO().consultar(
 				TipoidentificacionEntityMapper.converToEntity(TipoIdentificacionDomain.crear(id, null, null, false)));
 

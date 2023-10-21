@@ -6,10 +6,10 @@ import java.util.UUID;
 import co.edu.uco.tiendaonline.data.entity.support.CorreoElectronicoClienteEntity;
 import co.edu.uco.tiendaonline.data.entity.support.NombreCompletoClienteEntity;
 import co.edu.uco.tiendaonline.data.entity.support.NumeroCelularClienteEntity;
-import co.edu.uco.tiendaonline.service.domain.TipoIdentificacionDomain;
 import co.edu.uco.tiendaonline.service.domain.support.CorreoElectronicoClienteDomain;
 import co.edu.uco.tiendaonline.service.domain.support.NombreCompletoClienteDomain;
 import co.edu.uco.tiendaonline.service.domain.support.NumeroCelularClienteDomain;
+import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 
 public class ClienteEntity {
 
