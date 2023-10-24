@@ -1,6 +1,6 @@
 package co.edu.uco.tiendaonline.service.dto;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 import co.edu.uco.tiendaonline.crosscutting.util.UtilFecha;
@@ -90,6 +90,13 @@ public class ClienteDTO {
 	}
 	public final ClienteDTO setFechaNacimineto(final Date fechaNacimineto) {
 		this.fechaNacimineto = fechaNacimineto;return this;
+	}
+
+	public static ClienteDTO crear(UUID id, TipoIdentificacionDTO tipo, String identificacion,
+			NombreCompletoClienteDTO nombre, CorreoElectronicoClienteDTO correo,
+			NumeroCelularClienteDTO celular, Date fechaNacimineto) {
+	
+		return new ClienteDTO(id,tipo,identificacion,nombre,correo,celular,fechaNacimineto);
 	}
 	
 	

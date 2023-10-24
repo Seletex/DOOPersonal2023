@@ -1,4 +1,4 @@
-package co.edu.uco.tiendaonline.service.domain.support;
+package co.edu.uco.tiendaonline.service.domain.cliente.support;
 
 public final class CorreoElectronicoClienteDomain {
 	private String correoElectronico;

@@ -6,10 +6,8 @@ import java.util.UUID;
 import co.edu.uco.tiendaonline.data.entity.support.CorreoElectronicoClienteEntity;
 import co.edu.uco.tiendaonline.data.entity.support.NombreCompletoClienteEntity;
 import co.edu.uco.tiendaonline.data.entity.support.NumeroCelularClienteEntity;
-import co.edu.uco.tiendaonline.service.domain.support.CorreoElectronicoClienteDomain;
-import co.edu.uco.tiendaonline.service.domain.support.NombreCompletoClienteDomain;
-import co.edu.uco.tiendaonline.service.domain.support.NumeroCelularClienteDomain;
-import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.TipoIdentificacionDomain;
+
+
 
 public class ClienteEntity {
 
@@ -97,12 +95,6 @@ public class ClienteEntity {
 		return tipoIdentificacion;
 	}
 
-	public static ClienteEntity crear(UUID id2, UUID id3, TipoIdentificacionDomain tipoIdentificacion2,
-			String identificacion2, NombreCompletoClienteDomain nombreCompleto2,
-			CorreoElectronicoClienteDomain correoElectronico2, NumeroCelularClienteDomain numeroCelular2,
-			Date fechaNacimineto2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

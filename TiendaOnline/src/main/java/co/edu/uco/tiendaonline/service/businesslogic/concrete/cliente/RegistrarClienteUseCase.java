@@ -11,7 +11,8 @@ import co.edu.uco.tiendaonline.data.dao.daofactory.DAOFactory;
 import co.edu.uco.tiendaonline.data.entity.ClienteEntity;
 
 import co.edu.uco.tiendaonline.service.businesslogic.UseCase;
-import co.edu.uco.tiendaonline.service.domain.ClienteDomain;
+import co.edu.uco.tiendaonline.service.businesslogic.validator.concrete.cliente.RegistrarClienteValidator;
+import co.edu.uco.tiendaonline.service.domain.cliente.ClienteDomain;
 import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.edu.uco.tiendaonline.service.mapper.entity.concrete.ClienteEntityMapper;
 
@@ -30,7 +31,7 @@ public class RegistrarClienteUseCase implements UseCase<ClienteDomain> {
 	public void execute(ClienteDomain domain) {
 		// 1. Validar integridad de datos(Tipo de Dato, logitud, obligatoriedad,
 		// formato,rango)
-		
+		RegistrarClienteValidator.ejecutarValidacion(domain);
 		// 4. No debe de existir otro tipo de identificacion con el mismo nombre
 		validarNoExistnciaClienteConMismoNombre(domain.getTipoIdentificacion(),domain.getIdentificacion());
 		// 2. No debe de existir otro tipo de identificacion con l mismo identificador
@@ -45,7 +46,7 @@ public class RegistrarClienteUseCase implements UseCase<ClienteDomain> {
 	}
 
 	private final void validarNoExistnciaClienteConMismoNombre(final TipoIdentificacionDomain tipoIdentificacionDomain,final String identificacion) {
-		// TODO: ¿Como lograr que esto no quede tan feo????
+
 
 		final var resultado = getClienteDAO().consultar(ClienteEntityMapper
 				.converToEntity(ClienteDomain.crear(null, tipoIdentificacionDomain, identificacion, null,null,null,null)));

@@ -44,7 +44,7 @@ public class RegistrarTipoidentificacionUseCase implements UseCase<TipoIdentific
 	}
 
 	private final void validarNoExistnciaTipoIdentificacionConMismoNombre(final String nombre) {
-		// TODO: ¿Como lograr que esto no quede tan feo????
+
 
 		final var resultado = getTipoIdentificacionDAO().consultar(TipoidentificacionEntityMapper
 				.converToEntity(TipoIdentificacionDomain.crear(null, null, nombre, false)));
@@ -55,7 +55,7 @@ public class RegistrarTipoidentificacionUseCase implements UseCase<TipoIdentific
 	}
 
 	private final void validarNoexistenciaTipoIdentificacionMismoCodigo(final String codigo) {
-		// TODO: ¿Como lograr que esto no quede tan feo????
+
 		final var resultado = getTipoIdentificacionDAO().consultar(TipoidentificacionEntityMapper
 				.converToEntity(TipoIdentificacionDomain.crear(null, codigo, null, false)));
 

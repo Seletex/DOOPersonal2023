@@ -1,6 +1,6 @@
 package co.edu.uco.tiendaonline.crosscutting.util;
 
-import java.util.Date;
+import java.sql.Date;
 
 public final class UtilFecha {
 

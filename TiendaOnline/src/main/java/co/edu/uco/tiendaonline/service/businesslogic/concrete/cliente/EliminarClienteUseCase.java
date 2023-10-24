@@ -8,8 +8,8 @@ import co.edu.uco.tiendaonline.data.dao.ClienteDAO;
 
 import co.edu.uco.tiendaonline.data.dao.daofactory.DAOFactory;
 import co.edu.uco.tiendaonline.service.businesslogic.UseCase;
-import co.edu.uco.tiendaonline.service.domain.ClienteDomain;
-
+import co.edu.uco.tiendaonline.service.businesslogic.validator.concrete.cliente.EliminarClienteValidator;
+import co.edu.uco.tiendaonline.service.domain.cliente.ClienteDomain;
 import co.edu.uco.tiendaonline.service.mapper.entity.concrete.ClienteEntityMapper;
 
 
@@ -17,13 +17,16 @@ public class EliminarClienteUseCase implements UseCase<ClienteDomain> {
 
 	private DAOFactory factoria;
 
+	public EliminarClienteUseCase(DAOFactory factoria) {
+		setFactoria(factoria);
+	}
 	@Override
 	public void execute(ClienteDomain domain) {
 		setFactoria(factoria);
 
 		// 1. Validar integridad de datos(Tipo de Dato, logitud, obligatoriedad,
 		// formato,rango)
-
+EliminarClienteValidator.ejecutarValidacion(domain);
 	
 		// 5 Registrar un nuevo tipo identificacion
 		eliminarTipoidentificacion(domain);

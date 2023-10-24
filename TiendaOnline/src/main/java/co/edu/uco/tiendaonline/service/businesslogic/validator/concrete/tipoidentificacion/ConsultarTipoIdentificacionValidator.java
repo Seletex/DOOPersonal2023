@@ -8,10 +8,10 @@ import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.rules.IdTipoIde
 import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.rules.NombreTipoIdentificacionValidationRule;
 import co.edu.uco.tiendaonline.service.domain.tipoidentificacion.rules.TipoIdentificacionValidationRule;
 
-public final class ModificarTipoidentificacionValidator implements Validator<TipoIdentificacionDomain>{
+public class ConsultarTipoIdentificacionValidator implements Validator<TipoIdentificacionDomain>{
 
-	private static final Validator<TipoIdentificacionDomain> instancia = new ModificarTipoidentificacionValidator();
-	private ModificarTipoidentificacionValidator() {
+	private static final Validator<TipoIdentificacionDomain> instancia = new ConsultarTipoIdentificacionValidator();
+	private ConsultarTipoIdentificacionValidator() {
 		
 	}
 	
@@ -28,6 +28,6 @@ public final class ModificarTipoidentificacionValidator implements Validator<Tip
 		
 	}
 	
-
+	
 
 }

@@ -9,7 +9,7 @@ public class NumeroCelularClienteEntity {
 		setNumeroCelularConfirmado(numeroCelularConfirmado);
 	}
 	
-	public static final NumeroCelularClienteEntity crear(String numeroCelular, boolean numeroCelularConfirmado) {
+	public static final NumeroCelularClienteEntity crear(final String numeroCelular,final boolean numeroCelularConfirmado) {
 		return new NumeroCelularClienteEntity(numeroCelular, numeroCelularConfirmado);
 	}
 

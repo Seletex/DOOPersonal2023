@@ -1,4 +1,4 @@
-package co.edu.uco.tiendaonline.service.domain.support;
+package co.edu.uco.tiendaonline.service.domain.cliente.support;
 
 import co.edu.uco.tiendaonline.crosscutting.util.UtilTexto;
 
