@@ -5,18 +5,19 @@ import co.edu.uco.tiendaonline.crosscutting.util.UtilObjeto;
 
 import co.edu.uco.tiendaonline.service.domain.ValidationRule;
 
-import co.edu.uco.tiendaonline.service.domain.cliente.support.NombreCompletoClienteDomain;
 
-public class NumeroCelularClienteValidationRule implements ValidationRule<NombreCompletoClienteDomain> {
+import co.edu.uco.tiendaonline.service.domain.cliente.support.NumeroCelularClienteDomain;
 
-	private static final ValidationRule<NombreCompletoClienteDomain> instancia = new NumeroCelularClienteValidationRule();
+public class NumeroCelularClienteValidationRule implements ValidationRule<NumeroCelularClienteDomain> {
 
-	public static final void ejecutarValidacion(final NombreCompletoClienteDomain data) {
+	private static final ValidationRule<NumeroCelularClienteDomain> instancia = new NumeroCelularClienteValidationRule();
+
+	public static final void ejecutarValidacion(final NumeroCelularClienteDomain data) {
 		instancia.validator(data);
 	}
 
 	@Override
-	public final void validator(final NombreCompletoClienteDomain dato) {
+	public final void validator(final NumeroCelularClienteDomain dato) {
 
 		if (UtilObjeto.esNulo(dato)) {
 			throw ServiceTiendaOnlineException.crear(
