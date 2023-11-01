@@ -31,6 +31,10 @@ public final class TipoIdentificacionDTO {
 	public static final TipoIdentificacionDTO crear() {
 		return new TipoIdentificacionDTO();
 	}
+	
+	public static final TipoIdentificacionDTO crear(final UUID id, final String codigo, final String nombre, final boolean estado) {
+		return new TipoIdentificacionDTO(id, codigo,nombre,estado);
+	}
 	public final UUID getId() {
 		return id;
 	}
@@ -57,10 +61,7 @@ public final class TipoIdentificacionDTO {
 				
 	}
 
-	public static TipoIdentificacionDTO crear(UUID id2, String codigo2, String nombre2, boolean estado2) {
-		// TODO Auto-generated method stub
-		return new TipoIdentificacionDTO(id2, codigo2,nombre2,estado2);
-	}
+	
 	
 	
 }

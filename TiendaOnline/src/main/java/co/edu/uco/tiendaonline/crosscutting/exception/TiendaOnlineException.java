@@ -4,6 +4,7 @@ import co.edu.uco.tiendaonline.crosscutting.exception.enumerator.LugarException;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilObjeto;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilTexto;
 
+
 public class TiendaOnlineException extends RuntimeException {
 
 	private static final long serialVersionUID = -551425372694998396L;

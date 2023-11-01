@@ -1,4 +1,4 @@
-package co.edu.uco.tiendaonline.controller.tipoidentificacion;
+package co.edu.uco.tiendaonline.controller.cliente;
 
 import java.util.UUID;
 
@@ -15,36 +15,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.uco.tiendaonline.controller.support.response.Respuesta;
 import co.edu.uco.tiendaonline.crosscutting.exception.TiendaOnlineException;
-import co.edu.uco.tiendaonline.service.dto.TipoIdentificacionDTO;
-import co.edu.uco.tiendaonline.service.facade.concrete.tipoidentificacion.ConsultarTipoIdentificacionFacade;
-import co.edu.uco.tiendaonline.service.facade.concrete.tipoidentificacion.EliminarTipoIdentificacionFacade;
-import co.edu.uco.tiendaonline.service.facade.concrete.tipoidentificacion.RegistrarTipoIdentificacionFacade;
+import co.edu.uco.tiendaonline.crosscutting.exception.concrete.ControllerTiendaOnlineException;
+import co.edu.uco.tiendaonline.crosscutting.mensajes.CatalogoMensajes;
+import co.edu.uco.tiendaonline.crosscutting.mensajes.enumerator.CodigoMensaje;
+import co.edu.uco.tiendaonline.service.dto.ClienteDTO;
+
+import co.edu.uco.tiendaonline.service.facade.concrete.cliente.ConsultarClienteFacade;
+import co.edu.uco.tiendaonline.service.facade.concrete.cliente.EliminarClienteFacade;
+import co.edu.uco.tiendaonline.service.facade.concrete.cliente.RegistrarClienteFacade;
+
 
 @RestController
-@RequestMapping("/api/v1/tipoidentificacion")
-public final class TipoIdentificacionController {
+@RequestMapping("/api/v1/cliente")
+public final class ClienteController {
 
 	@GetMapping("/dummy")
-	public TipoIdentificacionDTO obtenerDumy() {
-		return TipoIdentificacionDTO.crear();}
+	public ClienteDTO obtenerDumy() {
+		return ClienteDTO.crear();}
 	
 	
 	
 	@GetMapping
-	public  final ResponseEntity<Respuesta<TipoIdentificacionDTO>> consultar(@RequestBody TipoIdentificacionDTO dto) {
-		final Respuesta<TipoIdentificacionDTO> respuesta = new Respuesta<>();
+	public  final ResponseEntity<Respuesta<ClienteDTO>> consultar(@RequestBody ClienteDTO dto) {
+		final Respuesta<ClienteDTO> respuesta = new Respuesta<>();
 		HttpStatus codigoHttpStatus = HttpStatus.BAD_REQUEST;
 		try {
-			final ConsultarTipoIdentificacionFacade facade = new ConsultarTipoIdentificacionFacade();
+			final ConsultarClienteFacade facade = new ConsultarClienteFacade();
 			facade.execute(dto);
 			codigoHttpStatus = HttpStatus.OK;
-			respuesta.getMensajes().add( "El tipo de identificacion fue registrado exitosamente");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000085));
 			
 		} catch (final TiendaOnlineException excepcion) {
 			respuesta.getMensajes().add(excepcion.getMensageUsuario());
-			//TODO: Hacer Logging de la excepcion presentada
+			throw ControllerTiendaOnlineException.crear(excepcion, CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000061), CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000069));
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("Se ha presentado un problema inesperado tratando de registrar el tipo de identificacion deseado ");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000085));
 			//TODO: Hacer Logging de la excepcion presentada
 		}
 		return new ResponseEntity<>(respuesta, codigoHttpStatus);
@@ -56,40 +61,40 @@ public final class TipoIdentificacionController {
 		return id;
 	}
 	@PostMapping
-	public final ResponseEntity<Respuesta<TipoIdentificacionDTO>> registrar(@RequestBody TipoIdentificacionDTO dto) {
-		 final Respuesta<TipoIdentificacionDTO> respuesta = new Respuesta<>();
+	public final ResponseEntity<Respuesta<ClienteDTO>> registrar(@RequestBody ClienteDTO dto) {
+		 final Respuesta<ClienteDTO> respuesta = new Respuesta<>();
 		HttpStatus codigoHttpStatus = HttpStatus.BAD_REQUEST;
 		try {
-			final RegistrarTipoIdentificacionFacade facade = new RegistrarTipoIdentificacionFacade();
+			final RegistrarClienteFacade facade = new RegistrarClienteFacade();
 			facade.execute(dto);
 			codigoHttpStatus = HttpStatus.OK;
-			respuesta.getMensajes().add( "El tipo de identificacion fue registrado exitosamente");
+			respuesta.getMensajes().add( CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000058));
 			
 		} catch (final TiendaOnlineException excepcion) {
 			respuesta.getMensajes().add(excepcion.getMensageUsuario());
 			//TODO: Hacer Logging de la excepcion presentada
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("Se ha presentado un problema inesperado tratando de registrar el tipo de identificacion deseado ");
+			respuesta.getMensajes().add( CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000063));
 			//TODO: Hacer Logging de la excepcion presentada
 		}
 		return new ResponseEntity<>(respuesta, codigoHttpStatus);
 	}
 	@PutMapping("/{id}")
-	public final ResponseEntity<Respuesta<TipoIdentificacionDTO>> modificar(@PathVariable("id") UUID id,@RequestBody TipoIdentificacionDTO dto) {
+	public final ResponseEntity<Respuesta<ClienteDTO>> modificar(@PathVariable("id") UUID id,@RequestBody ClienteDTO dto) {
 		dto.setId(id);
-		final Respuesta<TipoIdentificacionDTO> respuesta = new Respuesta<>();
+		final Respuesta<ClienteDTO> respuesta = new Respuesta<>();
 		HttpStatus codigoHttpStatus = HttpStatus.BAD_REQUEST;
 		try {
-			final ConsultarTipoIdentificacionFacade facade = new ConsultarTipoIdentificacionFacade();
+			final ConsultarClienteFacade facade = new ConsultarClienteFacade();
 			facade.execute(dto);
 			codigoHttpStatus = HttpStatus.OK;
-			respuesta.getMensajes().add( "El tipo de identificacion fue modifcado exitosamente");
+			respuesta.getMensajes().add( CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000059));
 			
 		} catch (final TiendaOnlineException excepcion) {
 			respuesta.getMensajes().add(excepcion.getMensageUsuario());
 			//TODO: Hacer Logging de la excepcion presentada
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("Se ha presentado un problema inesperado tratando de modificar el tipo de identificacion deseado ");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000062));
 			//TODO: Hacer Logging de la excepcion presentada
 		}
 		return new ResponseEntity<>(respuesta, codigoHttpStatus);
@@ -98,24 +103,23 @@ public final class TipoIdentificacionController {
 		
 	
 	@DeleteMapping("/{id}")
-	public final ResponseEntity<Respuesta<TipoIdentificacionDTO>> eliminar(@PathVariable("id") UUID id,@RequestBody TipoIdentificacionDTO dto) {
-		final Respuesta<TipoIdentificacionDTO> respuesta = new Respuesta<>();
+	public final ResponseEntity<Respuesta<ClienteDTO>> eliminar(@PathVariable("id") UUID id,@RequestBody ClienteDTO dto) {
+		final Respuesta<ClienteDTO> respuesta = new Respuesta<>();
 		HttpStatus codigoHttpStatus = HttpStatus.BAD_REQUEST;
 		try {
-			final EliminarTipoIdentificacionFacade facade = new EliminarTipoIdentificacionFacade();
+			final EliminarClienteFacade facade = new EliminarClienteFacade();
 			facade.execute(dto);
 			codigoHttpStatus = HttpStatus.OK;
-			respuesta.getMensajes().add( "El tipo de identificacion fue eliminado exitosamente");
+			respuesta.getMensajes().add( CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000060));
 			
 		} catch (final TiendaOnlineException excepcion) {
 			respuesta.getMensajes().add(excepcion.getMensageUsuario());
 			//TODO: Hacer Logging de la excepcion presentada
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("Se ha presentado un problema inesperado tratando de eliminar el tipo de identificacion deseado ");
+			respuesta.getMensajes().add( CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000068));
 			//TODO: Hacer Logging de la excepcion presentada
 		}
 		return new ResponseEntity<>(respuesta, codigoHttpStatus);
 	
 	}
 }
-

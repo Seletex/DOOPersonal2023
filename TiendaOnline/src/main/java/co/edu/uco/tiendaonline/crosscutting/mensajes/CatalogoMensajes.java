@@ -140,6 +140,62 @@ public final class CatalogoMensajes {
 				"Se ha presentado un prblema de tipo SQLException en el metodo colocar parametros de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000056, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
 				"Se ha presentado un prblema inesperado de tipo SQLException en el metodo colocar parametros de la clase TipoidentificacionSQLDAO tratando de colocar los parametros de la consulta SQL. Profavor revise la traza completa del problema presentado"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000058, TipoMensaje.USUARIO, CategoriaMensaje.INFORMACION,
+				"Se ha registrado la informacion correctamente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000059, TipoMensaje.USUARIO, CategoriaMensaje.INFORMACION,
+				"Se ha modificado la informacion correctamente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000085, TipoMensaje.USUARIO, CategoriaMensaje.INFORMACION,
+				"Se ha consultado la informacion correctamente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000060, TipoMensaje.USUARIO, CategoriaMensaje.INFORMACION,
+				"Se ha eliminado la informacion correctamente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000061, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al registrar la informacion "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000062, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al modificar la informacion"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000063, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al consultar la informacion"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000064, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al eliminar la informacion"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000065, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al registrar la informacion "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000066, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al modificar la informacion"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000067, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al consultar la informacion"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000068, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al eliminar la informacion"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000069, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al registrar la informacion del metodo Registrar en TipoIdentificacionController de tipo TiendaOnlineExcepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000070, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al modificar la informacion del metodo Modifcar en TipoIdentificacionController de tipo TiendaOnlineExcepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000071, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al consultar la informacion del metodo Consultar en TipoIdentificacionController de tipo TiendaOnlineExcepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000072, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al eliminar la informacion del metodo Eliminar en TipoIdentificacionController de tipo TiendaOnlineExcepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000073, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al registrar la informacion del metodo Registrar en ClienteController de tipo TiendaOnlineExcepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000074, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al modificar la informacion del metodo Modifcar en ClienteController de tipo TiendaOnlineExcepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000075, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al consultar la informacion del metodo Consultar en ClienteController de tipo TiendaOnlineExcepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000076, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema al eliminar la informacion del metodo Eliminar en ClienteController de tipo TiendaOnlineExcepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000077, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al registrar la informacion del metodo Registrar en TipoIdentificacionController de tipo Excepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000078, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al modificar la informacion del metodo Modifcar en TipoIdentificacionController de tipo Excepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000079, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al consultar la informacion del metodo Consultar en TipoIdentificacionController de tipo Excepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000080, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al eliminar la informacion del metodo Eliminar en TipoIdentificacionController de tipo Excepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000081, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al registrar la informacion del metodo Registrar en ClienteController de tipo Excepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000082, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al modificar la informacion del metodo Modifcar en ClienteController de tipo Excepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000083, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al consultar la informacion del metodo Consultar en ClienteController de tipo Excepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000084, TipoMensaje.USUARIO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado al eliminar la informacion del metodo Eliminar en ClienteController de tipo Excepcion. Porfavor Revisar la trza completa, en caso de que el problema persista comuniquece al administrador "));
 	
 	}
 

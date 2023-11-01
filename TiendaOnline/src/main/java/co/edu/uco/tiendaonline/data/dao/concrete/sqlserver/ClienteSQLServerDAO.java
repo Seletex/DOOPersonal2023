@@ -114,7 +114,7 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 	public final Optional<ClienteEntity> consultarPorId(UUID id) {
 		final var sentencia = new StringBuilder();
 		sentencia.append(
-				"SELECTO id, tipoIdentificacion, identificacion, nombreCompleto, correoElectronico, numeroCelular, fechaNacimiento ");
+				"SELECT id, tipoIdentificacion, identificacion, nombreCompleto, correoElectronico, numeroCelular, fechaNacimiento ");
 		sentencia.append("FROM Cliente ");
 		sentencia.append("WHERE id = ? ");
 
@@ -178,8 +178,8 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 		final StringBuilder sentencia = new StringBuilder();
 		String operadorCondicional = "WHERE";
 
-		sentencia.append("SELECT id,codigo,nombre, estado ");
-		sentencia.append("FROM TipoIdentificacion ");
+		sentencia.append("SELECT id,tipoidentificacion, identificacion, nombre, correo, celular, fechanacimiento ");
+		sentencia.append("FROM Cliente ");
 		if (!UtilObjeto.esNulo(entity)) {
 			if (!UtilObjeto.esNulo(entity.getId())) {
 				sentencia.append(operadorCondicional).append(" id=? ");
@@ -193,7 +193,7 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 			}
 
 			if (!UtilTexto.estaVacio(entity.getIdentificacion())) {
-				sentencia.append(operadorCondicional).append(" nombre=? ");
+				sentencia.append(operadorCondicional).append(" identificacion=? ");
 				operadorCondicional = "AND ";
 				parametros.add(entity.getIdentificacion());
 			}
@@ -222,7 +222,7 @@ public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
 			}
 		}
 
-		sentencia.append(" ORDER BY codigo ASC ");
+		sentencia.append(" ORDER BY identificacion ASC ");
 		return sentencia.toString();
 	}
 
